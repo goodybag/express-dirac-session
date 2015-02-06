@@ -18,10 +18,12 @@ dirac.register( require('express-dirac-session/dal') );
 
 // Use the middleware
 app.use( require('express-dirac-session')({
-  secret: config.session.secret
-, cookie: config.session.cookie
-, resave: config.session.resave
-, saveUninitialized: config.session.saveUninitialized
+  secret: 'blah'
+          // two weeks
+, cookie: { maxAge: 14 * 24 * 60 * 60 * 1000 }
+, resave: true
+, saveUninitialized: true
+  // This is optional - by default, we just look up all properties on the user
 , queryOptions: {
     // Describe how to fetch users as a sub-query
     // Also, do a one-to-many pluck on users_groups
@@ -33,16 +35,4 @@ app.use( require('express-dirac-session')({
           ]
   }
 }));
-
-
-///accccctuallllly
-// Since express session implementations don't have access
-// to req/res objects, all information needs to be
-// communicated through the req.session object. We put the
-// User object on
-app.use( function( req, res, next ){
-  req.user = req.session.canonical;
-  delete req.session.canonical;
-  next();
-});
 ```
