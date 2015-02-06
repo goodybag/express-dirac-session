@@ -13,7 +13,7 @@
     "lodash": "^3.1.0"
   },
   "peerDependencies": {
-    "dirac": "^0.4.9"
+    "dirac": "^0.4.10"
   },
   "devDependencies": {
     "express": "^4.11.2"
